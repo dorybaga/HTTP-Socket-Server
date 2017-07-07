@@ -12,8 +12,6 @@ const fs = require('fs');
 // Create new server
 const server = net.createServer(function(socket){
   socket.on('data', function(data){
-    // console.log(data.toString());
-  // console.log(data.toString().split('\n')[0].split(" ")[1]);
 
     const index = fs.readFileSync('public/index.html', 'utf8', () =>{
 
@@ -37,7 +35,7 @@ const server = net.createServer(function(socket){
 
     const today = new Date('Wed, 08 Jul 2015 22:31:15 GMT');
 
-
+    // Function to write header
     function makeHeader(status, type, length, name){
 
       return `HTTP/${status}
@@ -51,58 +49,10 @@ ${name}`;
 
       }
 
-//   socket.write(`HTTP/1.1 200 OK
-// Server: betaserver
-// Date: ${today};
-// Content-Type: text/html; charset=utf-8
-// Content-Length: index.length
-// Connection: keep-alive
-
-// ${index}`);
-
-// socket.write(`HTTP/1.1 200 OK
-// Server: betaserver
-// Date: ${today};
-// Content-Type: text/html; charset=utf-8
-// Content-Length: hydrogen.length
-// Connection: keep-alive
-
-// ${hydrogen}`);
-
-// socket.write(`HTTP/1.1 200 OK
-// Server: betaserver
-// Date: ${today};
-// Content-Type: text/html; charset=utf-8
-// Content-Length: helium.length
-// Connection: keep-alive
-
-// ${helium}`);
-
-// socket.write(`HTTP/1.1 200 OK
-// Server: betaserver
-// Date: ${today};
-// Content-Type: text/html; charset=utf-8
-// Content-Length: err.length
-// Connection: keep-alive
-
-// ${err}`);
-
-
-// socket.write(`HTTP/1.1 200 OK
-// Server: betaserver
-// Date: ${today};
-// Content-Type: text/html; charset=utf-8
-// Content-Length: css.length
-// Connection: keep-alive
-
-// ${css}`);
-
-
-  // console.log(makeHeader( '1.1 200 OK', 'text/html', '404', index ));
-  // console.log(index.length, hydrogen.length, helium.length, css.length, err.length);
-
+    // Define switch expression; find what data to target
     var URI = (data.toString().split('\n')[0].split(" ")[1]);
 
+    // Conditions for each request
     switch(URI){
       case "/":
         socket.write(makeHeader( '1.1 200 OK', 'text/html', '404', index ));
@@ -137,7 +87,6 @@ ${name}`;
 
     }
   });
-
 });
 
 // Make server listen
