@@ -4,8 +4,8 @@
 const net = require('net');
 const fs = require('fs');
 
+// Create new server
 const server = net.createServer(function(socket){
-  // socket.write("");
   socket.on('data', function(data){
   console.log("connection recieved");
   // console.log(data.toString());
@@ -27,67 +27,79 @@ const server = net.createServer(function(socket){
   });
 
   const css = fs.readFileSync('public/css/styles.css', 'utf8', () =>{
+
   });
 
 
   const today = new Date('Wed, 08 Jul 2015 22:31:15 GMT \n');
 
+  function makeHeader(status, type, name){
 
-  socket.write(`HTTP/1.1 200 OK
+    return `HTTP/1.1 ${status}
 Server: betaserver
-Date: ${today};
-Content-Type: text/html; charset=utf-8
-Content-Length: index.length
+Date: ${new Date()};
+Content-Type: ${type}; charset=utf-8
+Content-Length: ${name}.length
 Connection: keep-alive
 
-${index}`);
+${name}`;
 
-socket.write(`HTTP/1.1 200 OK
-Server: betaserver
-Date: ${today};
-Content-Type: text/html; charset=utf-8
-Content-Length: index.length
-Connection: keep-alive
+  }
 
-${hydrogen}`);
-
-socket.write(`HTTP/1.1 200 OK
-Server: betaserver
-Date: ${today};
-Content-Type: text/html; charset=utf-8
-Content-Length: index.length
-Connection: keep-alive
-
-${helium}`);
-
-socket.write(`HTTP/1.1 200 OK
-Server: betaserver
-Date: ${today};
-Content-Type: text/html; charset=utf-8
-Content-Length: index.length
-Connection: keep-alive
-
-${err}`);
+  console.log(makeHeader( '200 OK', 'text/html', index ));
+  socket.write(makeHeader( '200 OK', 'text/html', index ))
 
 
-socket.write(`HTTP/1.1 200 OK
-Server: betaserver
-Date: ${today};
-Content-Type: text/html; charset=utf-8
-Content-Length: index.length
-Connection: keep-alive
+//   socket.write(`HTTP/1.1 200 OK
+// Server: betaserver
+// Date: ${today};
+// Content-Type: text/html; charset=utf-8
+// Content-Length: index.length
+// Connection: keep-alive
 
-${css}`);
+// ${index}`);
+
+// socket.write(`HTTP/1.1 200 OK
+// Server: betaserver
+// Date: ${today};
+// Content-Type: text/html; charset=utf-8
+// Content-Length: hydrogen.length
+// Connection: keep-alive
+
+// ${hydrogen}`);
+
+// socket.write(`HTTP/1.1 200 OK
+// Server: betaserver
+// Date: ${today};
+// Content-Type: text/html; charset=utf-8
+// Content-Length: helium.length
+// Connection: keep-alive
+
+// ${helium}`);
+
+// socket.write(`HTTP/1.1 200 OK
+// Server: betaserver
+// Date: ${today};
+// Content-Type: text/html; charset=utf-8
+// Content-Length: err.length
+// Connection: keep-alive
+
+// ${err}`);
+
+
+// socket.write(`HTTP/1.1 200 OK
+// Server: betaserver
+// Date: ${today};
+// Content-Type: text/html; charset=utf-8
+// Content-Length: css.length
+// Connection: keep-alive
+
+// ${css}`);
 
 
   socket.destroy();
 
   });
-
-
-  // The correct status code should be sent
-  // Date : The current timestamp should be sent in RFC1123 format
-  // Server : The name of your custom http server
 
 });
 
