@@ -1,12 +1,18 @@
 
 /*jshint esversion: 6 */
 
+// Objectives
+  // Receive the request
+  // Respond to the request
+  // End connection
+
 const net = require('net');
 const fs = require('fs');
 
 // Create new server
 const server = net.createServer(function(socket){
   socket.on('data', function(data){
+    // console.log(data.toString());
   // console.log(data.toString().split('\n')[0].split(" ")[1]);
 
     const index = fs.readFileSync('public/index.html', 'utf8', () =>{
@@ -120,7 +126,7 @@ ${name}`;
 
 
       case "/css/styles.css":
-        socket.write(makeHeader( '1.1 200 OK', 'text/html', '1961', css ));
+        socket.write(makeHeader( '1.1 200 OK', 'text/css', '1961', css ));
         socket.destroy();
         break;
 
@@ -138,11 +144,6 @@ ${name}`;
 server.listen(8080, '0.0.0.0', () => {
   console.log('Server is listening on port 8080 \n');
 });
-
-
-// receive the request
-// respond
-// end connection
 
 
 
