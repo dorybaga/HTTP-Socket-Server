@@ -6,8 +6,9 @@ const net = require('net');
 // URI
   // Parse URL to target URI
   const argv = process.argv;
-  const url =(argv[2].split(""));
+  const url =argv[2].split("");
   console.log(url);
+  let uri = [];
 
   //Loop through url to find "/"
   for (var i = 0; i < url.length; i++){
@@ -21,16 +22,17 @@ const net = require('net');
       console.log("this should be the idx# after / ", backslash + 1);
       const uriArr = url.slice(backslash, url.length);
       console.log("this is the uriArr: ", uriArr);
-      const uri = uriArr.join("");
-      console.log("this is the uri: ", uri);
-
+      const uriConcat = uriArr.join("");
+      console.log("this is the uri: ", uriConcat);
+      uri = uriConcat;
     }
   }
 
 
-const socket = net.createConnection( { host: process.argv[2], port: 80 }, () => {
+const socket = net.createConnection( { host: process.argv[2], path: uri, port: 80 }, () => {
   console.log('Connected!');
   const host = process.argv[2];
+  console.log(host);
   const today = new Date('Wed, 08 Jul 2015 22:31:15 GMT');
 
   // Send HTTP Request
